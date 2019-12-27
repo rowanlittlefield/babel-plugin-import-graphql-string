@@ -1,0 +1,12 @@
+query USER_QUERY($id: Int!) {
+  user(id: $id) {
+    id
+    username
+    firstName
+    lastName
+    articleSet {
+      id
+      title
+    }
+  }
+}

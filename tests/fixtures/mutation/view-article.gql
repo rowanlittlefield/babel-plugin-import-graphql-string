@@ -1,0 +1,12 @@
+#import "../fragment/article.gql"
+  
+mutation VIEW_ARTICLE_MUTATION($id: Int!) {
+  viewArticle(id: $id) {
+    ok
+    article {
+      ...ArticleListItem
+      introduction
+      description
+    }
+  }
+}
