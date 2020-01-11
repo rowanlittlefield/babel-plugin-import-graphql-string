@@ -1,0 +1,5 @@
+mutation createWorld($id: Int!) {
+  hello(id: $id) {
+    id
+  }
+}
