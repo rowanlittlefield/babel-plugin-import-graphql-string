@@ -14,7 +14,7 @@ module.exports = ({ types: t, template }) => ({
       exit(curPath, { opts, file }) {
         const importPath = curPath.node.source.value
         const jsFilename = file.opts.filename
-        let { extensions = [], emitDeclarations = false } = opts
+        let { extensions = [] } = opts
 
         extensions = [...extensions, '.graphql', '.gql']
 
@@ -27,7 +27,7 @@ module.exports = ({ types: t, template }) => ({
           if (!existsSync(absPath)) absPath = require.resolve(importPath, { paths: fallbackPaths })
 
           // Analyze the file, returning a map of names to GraphQL Documents
-          const result = createGqlDocs(absPath, { resolve, nowrap: false, emitDeclarations })
+          const result = createGqlDocs(absPath, { resolve, nowrap: false })
 
           const importNames = curPath.node.specifiers
           const replacements = buildReplacements(result, importNames, opts, seenJSFiles)
@@ -60,8 +60,7 @@ module.exports = ({ types: t, template }) => ({
         function buildVarNode(graphqlAST, importName) {
           if (graphqlAST.default) {
             const properties = Object.entries(graphqlAST).map(([key, value]) => {
-              const expr = t.callExpression(t.identifier('gql'), [t.stringLiteral(print(value))])
-              return t.objectProperty(t.stringLiteral(key), expr)
+              return t.objectProperty(t.stringLiteral(key), t.stringLiteral(print(value)))
             })
             return template('var IMPORT_NAME = SOURCE', { sourceType: 'module' })({
               IMPORT_NAME: t.identifier(importName),
