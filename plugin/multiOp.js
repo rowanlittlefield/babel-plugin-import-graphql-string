@@ -32,10 +32,8 @@ module.exports.createDocPerOp = function ({ ast: doc, isOnlyFrags }) {
       const curOpDoc = createSingleOperationDoc(doc, op.name.value)
       if (i === 0) {
         docs.default = curOpDoc
-        docs[op.name.value] = curOpDoc
-      } else {
-        docs[op.name.value] = curOpDoc
       }
+      docs[op.name.value] = curOpDoc
     }
   })
 
