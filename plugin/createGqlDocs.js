@@ -2,7 +2,6 @@ const { readFileSync, writeFileSync } = require('fs')
 const path = require('path')
 const { isAbsolute, join, dirname } = require('path')
 const gql = require('graphql-tag')
-
 const { createDocPerOp } = require('./multiOp')
 const customImport = require('./customImport')
 
@@ -11,7 +10,7 @@ module.exports.defaultResolve = defaultResolve;
 
 module.exports.createGqlDocs = (
   filepath,
-  { resolve = defaultResolve, nowrap = true, emitDeclarations = false } = {}
+  { resolve = defaultResolve, nowrap = true } = {}
 ) => {
   filepath = isAbsolute(filepath) ? filepath : join(callerDirname(), filepath)
   const source = readFileSync(filepath).toString()
@@ -19,38 +18,7 @@ module.exports.createGqlDocs = (
   const doc = processDoc(createDoc(source, filepath, resolve))
   const docsMap = createDocPerOp(doc)
 
-  if (emitDeclarations) {
-    writeDTs(filepath, docsMap)
-  }
-
   return nowrap && !doc.isMultiOp ? docsMap.default : docsMap
-}
-
-function writeDTs(filepath, docsMap) {
-  const defLines = Object.keys(docsMap).map(key => {
-    const commentBody = docsMap[key].loc.source.body
-      .trim()
-      .split('\n')
-      .map(line => ` * ${line}`)
-      .join('\n')
-
-    const docComment = `/**\n * \`\`\`gql\n${commentBody}\n * \`\`\`\n */\n`
-
-    if (key === 'default') {
-      return `${docComment}declare const _ = ${JSON.stringify(
-        docsMap[key] /* null, 2 */
-      )} as const;\nexport default _;\n`
-    }
-    return `${docComment}export const ${key} = ${JSON.stringify(
-      docsMap[key] /* null, 2 */
-    )} as const;\n`
-  })
-
-  defLines.unshift(`/**\n * Generated at ${new Date().toISOString()}\n */\n`)
-
-  defLines.push('')
-
-  writeFileSync(filepath + '.d.ts', defLines.join('\n'))
 }
 
 function callerDirname() {
