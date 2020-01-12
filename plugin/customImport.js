@@ -1,5 +1,4 @@
 const { readFileSync } = require('fs')
-
 const { newlinePattern, importPattern } = require('./constants')
 
 function getFilepaths(src, relFile, resolve) {
