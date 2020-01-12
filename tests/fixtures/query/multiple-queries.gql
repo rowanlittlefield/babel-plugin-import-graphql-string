@@ -1,3 +1,0 @@
-query first { foo }
-
-query second { bar }
