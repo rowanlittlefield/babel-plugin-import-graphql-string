@@ -1,12 +1,13 @@
 const { delimiter } = require('path');
 const { existsSync } = require('fs');
-const { print } = require('graphql/language');
+// const { print } = require('graphql/language');
 const { createGqlDocs, defaultResolve } = require('./createGqlDocs');
+const printGql = require('./printGql');
 
 let resolve
 let seenJSFiles = new Set()
 module.exports = ({ types: t, template }) => ({
-  manipulateOptions({ resolveModuleSource, plugins }) {
+  manipulateOptions({ resolveModuleSource }) {
     resolve = resolveModuleSource || defaultResolve
   },
   visitor: {
@@ -60,7 +61,7 @@ module.exports = ({ types: t, template }) => ({
         function buildVarNode(graphqlAST, importName) {
           if (graphqlAST.default) {
             const properties = Object.entries(graphqlAST).map(([key, value]) => {
-              return t.objectProperty(t.stringLiteral(key), t.stringLiteral(print(value)))
+              return t.objectProperty(t.stringLiteral(key), t.stringLiteral(printGql(value, opts)))
             })
             return template('var IMPORT_NAME = SOURCE', { sourceType: 'module' })({
               IMPORT_NAME: t.identifier(importName),
@@ -71,7 +72,7 @@ module.exports = ({ types: t, template }) => ({
           const buildNode = template('var IMPORT_NAME = SOURCE;', { sourceType: 'module' })
           return buildNode({
             IMPORT_NAME: t.identifier(importName),
-            SOURCE: t.stringLiteral(print(graphqlAST))
+            SOURCE: t.stringLiteral(printGql(graphqlAST, opts))
           })
         }
       }
