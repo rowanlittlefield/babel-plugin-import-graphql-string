@@ -4,7 +4,8 @@ const removeChars = (str) => {
   return str.replace(/\r?\n/g, '')
     .replace(/\s{0,}([{])\s{0,}/g, '{')
     .replace(/\s{0,}([}])\s{0,}/g, '}')
-    .replace(/\s{2,}/g, ' ');
+    .replace(/\s{2,}/g, ' ')
+    .replace(/[,]/g, '');
 }
 
 module.exports = (graphqlAST, opts) => {
