@@ -1,6 +1,5 @@
 const { delimiter } = require('path');
 const { existsSync } = require('fs');
-// const { print } = require('graphql/language');
 const { createGqlDocs, defaultResolve } = require('./createGqlDocs');
 const printGql = require('./printGql');
 
