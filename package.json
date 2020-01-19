@@ -2,7 +2,10 @@
   "name": "babel-plugin-import-graphql-string",
   "version": "1.0.0",
   "description": "Babel plugin to make .gql/.graphql files importable as strings/document nodes",
-  "main": "index.js",
+  "main": "build/index.js",
+  "files": [
+    "build"
+  ],
   "scripts": {
     "test": "jest",
     "prepare": "babel plugin --out-dir build"
@@ -14,7 +17,7 @@
     "extension",
     "import"
   ],
-  "author": "Rowan Littlefield",
+  "author": "Rowan Littlefield <rowanlittlefield@ymail.com>",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.7.7",
