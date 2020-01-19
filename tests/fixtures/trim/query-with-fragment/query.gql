@@ -1,0 +1,12 @@
+#import "./fragment.gql"
+
+query DASHBOARD_ARTICLES_QUERY {
+  articles {
+    ...ArticleListItem
+  }
+  mostViewed {
+    id
+    title
+    views
+  }
+}
