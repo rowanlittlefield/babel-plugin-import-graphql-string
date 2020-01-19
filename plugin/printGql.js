@@ -1,12 +1,9 @@
 const { print } = require('graphql/language');
 
 const removeChars = str => (
-  str.replace(/[\r?\n,]/g, '')
-    .replace(/\s{0,}([{])\s{0,}/g, '{')
-    .replace(/\s{0,}([}])\s{0,}/g, '}')
+  str.replace(/[\r\n,]/g, '')
+    .replace(/\s*([{}:$])\s*/g, (_, capture) => capture)
     .replace(/\s{2,}/g, ' ')
-    .replace(/:\s{1,}/g, ':')
-    .replace(/\s{1,}([$])/g, '$')
 );
 
 module.exports = (graphqlAST, opts) => {
