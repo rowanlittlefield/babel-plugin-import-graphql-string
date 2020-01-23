@@ -18,3 +18,15 @@ pluginTester({
     trim: true,
   },
 });
+
+pluginTester({
+  plugin,
+  pluginName: 'import-graphql-string',
+  title: 'aliases',
+  fixtures: path.join(__dirname, 'fixtures/aliases'),
+  pluginOptions: {
+    aliases: {
+      '@': './tests',
+    },
+  },
+});
