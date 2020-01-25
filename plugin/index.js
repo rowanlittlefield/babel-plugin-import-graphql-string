@@ -21,7 +21,6 @@ module.exports = ({ types: t, template }) => ({
         if (extensions.some(extension => importPath.endsWith(extension))) {
           // Find the file, using node resolution/NODE_PATH if necessary.
           const fallbackPaths = [process.env.NODE_PATH];
-
           let absPath = resolve(importPath, jsFilename, opts)
           if (!existsSync(absPath)) absPath = require.resolve(importPath, { paths: fallbackPaths })
 
