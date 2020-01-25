@@ -1,9 +1,13 @@
 const path = require('path');
-const { dirname } = require('path')
+const { dirname, parse } = require('path')
 
-const defaultResolve = (src, file, opts) => {
-  if (opts && opts.aliases) {
-    const firstMatchingAlias = src.match(Object.keys(opts.aliases)[0])[0];
+module.exports = (src, file, opts = {}) => {
+  if (opts.aliases) {
+    const firstDir = parse(src).dir.split('/')[0];
+    const firstMatchingAlias = Object.keys(opts.aliases).find((alias) => {
+      const match = firstDir.match(alias);
+      return match && match[0];
+    });
     
     if (firstMatchingAlias) {
       const aliasPath = opts.aliases[firstMatchingAlias];
@@ -12,5 +16,4 @@ const defaultResolve = (src, file, opts) => {
   }
 
   return path.resolve(dirname(file), src);
-}
-module.exports.defaultResolve = defaultResolve;
+};

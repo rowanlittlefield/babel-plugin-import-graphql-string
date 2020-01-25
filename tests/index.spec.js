@@ -26,6 +26,7 @@ pluginTester({
   fixtures: path.join(__dirname, 'fixtures/aliases'),
   pluginOptions: {
     aliases: {
+      'fixtures': './tests/fixtures',
       '@': './tests',
     },
   },

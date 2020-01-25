@@ -7,11 +7,6 @@ const removeUnnecessaryChars = str => (
 );
 
 module.exports = (graphqlAST, { trim = false }) => {
-  let graphqlStr = print(graphqlAST);
-
-  if (trim) {
-    graphqlStr = removeUnnecessaryChars(graphqlStr);
-  }
-
-  return graphqlStr;
-}
+  const graphqlStr = print(graphqlAST);
+  return trim ? removeUnnecessaryChars(graphqlStr) : graphqlStr;
+};
