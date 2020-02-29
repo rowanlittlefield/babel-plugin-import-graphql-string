@@ -1,6 +1,6 @@
 const { print, stripIgnoredCharacters } = require('graphql');
 
-module.exports = (graphqlAST, { stripIgnoredCharacters: optsFlag = false }) => {
+module.exports = (graphqlAST, { stripIgnoredCharacters: stripFlag = false }) => {
   const graphqlStr = print(graphqlAST);
-  return optsFlag ? stripIgnoredCharacters(graphqlStr) : graphqlStr;
+  return stripFlag ? stripIgnoredCharacters(graphqlStr) : graphqlStr;
 };
