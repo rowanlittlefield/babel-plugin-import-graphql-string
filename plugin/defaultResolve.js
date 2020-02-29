@@ -1,5 +1,5 @@
-const path = require('path');
-const { dirname, parse } = require('path')
+// const path = require('path');
+const { dirname, parse, resolve } = require('path')
 
 module.exports = (src, file, opts = {}) => {
   if (opts.aliases) {
@@ -11,9 +11,9 @@ module.exports = (src, file, opts = {}) => {
     
     if (firstMatchingAlias) {
       const aliasPath = opts.aliases[firstMatchingAlias];
-      return path.resolve(src.replace(firstMatchingAlias, aliasPath));
+      return resolve(src.replace(firstMatchingAlias, aliasPath));
     }
   }
 
-  return path.resolve(dirname(file), src);
+  return resolve(dirname(file), src);
 };
