@@ -1,4 +1,3 @@
-// const path = require('path');
 const { dirname, parse, resolve } = require('path')
 
 module.exports = (src, file, opts = {}) => {
