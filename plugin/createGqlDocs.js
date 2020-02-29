@@ -2,7 +2,7 @@ const { readFileSync, writeFileSync } = require('fs')
 const { isAbsolute, join, dirname } = require('path')
 const gql = require('graphql-tag')
 const { createDocPerOp } = require('./multiOp')
-const { defaultResolve } = require('./defaultResolve');
+const { defaultResolve } = require('./defaultResolve')
 const customImport = require('./customImport')
 
 module.exports.createGqlDocs = (

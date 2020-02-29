@@ -1,12 +1,6 @@
-const { print } = require('graphql/language');
+const { print, stripIgnoredCharacters } = require('graphql');
 
-const removeUnnecessaryChars = str => (
-  str.replace(/[\r\n,]/g, '')
-    .replace(/\s*([{}:$])\s*/g, (_, capture) => capture)
-    .replace(/\s{2,}/g, ' ')
-);
-
-module.exports = (graphqlAST, { trim = false }) => {
+module.exports = (graphqlAST, { stripIgnoredCharacters: optsFlag = false }) => {
   const graphqlStr = print(graphqlAST);
-  return trim ? removeUnnecessaryChars(graphqlStr) : graphqlStr;
+  return optsFlag ? stripIgnoredCharacters(graphqlStr) : graphqlStr;
 };
