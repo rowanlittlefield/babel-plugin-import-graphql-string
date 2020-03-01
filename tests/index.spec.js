@@ -12,9 +12,22 @@ pluginTester({
 pluginTester({
   plugin,
   pluginName: 'import-graphql-string',
-  title: 'trim',
-  fixtures: path.join(__dirname, 'fixtures/trim'),
+  title: 'stripIgnoredCharacters',
+  fixtures: path.join(__dirname, 'fixtures/strip-ignored-characters'),
   pluginOptions: {
-    trim: true,
+    stripIgnoredCharacters: true,
+  },
+});
+
+pluginTester({
+  plugin,
+  pluginName: 'import-graphql-string',
+  title: 'aliases',
+  fixtures: path.join(__dirname, 'fixtures/aliases'),
+  pluginOptions: {
+    aliases: {
+      'fixtures': './tests/fixtures',
+      '@': './tests',
+    },
   },
 });

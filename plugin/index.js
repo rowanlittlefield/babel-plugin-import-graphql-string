@@ -1,6 +1,6 @@
-const { delimiter } = require('path');
 const { existsSync } = require('fs');
-const { createGqlDocs, defaultResolve } = require('./createGqlDocs');
+const { createGqlDocs } = require('./createGqlDocs');
+const defaultResolve = require('./defaultResolve');
 const printGql = require('./printGql');
 
 let resolve
@@ -20,10 +20,8 @@ module.exports = ({ types: t, template }) => ({
 
         if (extensions.some(extension => importPath.endsWith(extension))) {
           // Find the file, using node resolution/NODE_PATH if necessary.
-          const fallbackPaths = opts.nodePath
-            ? opts.nodePath.split(delimiter)
-            : [process.env.NODE_PATH]
-          let absPath = resolve(importPath, jsFilename)
+          const fallbackPaths = [process.env.NODE_PATH];
+          let absPath = resolve(importPath, jsFilename, opts)
           if (!existsSync(absPath)) absPath = require.resolve(importPath, { paths: fallbackPaths })
 
           // Analyze the file, returning a map of names to GraphQL Documents
