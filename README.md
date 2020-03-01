@@ -1,91 +1,37 @@
 # babel-plugin-import-graphql-string
 
-Babel plugin to make .gql/.graphql files importable as strings/document nodes. Intended for cases where the user would like to make use of the GraphQL import syntax without needing access to graphQL `ASTNode` objects. In this case, compiling imported GraphQL operations to strings rather than `ASTNode` objects can lead to a reduction in bundle size.
+This package is a Babel plugin that makes `.gql`/`.graphql` files importable as strings/document nodes with all GraphQL import statements resolved. The package is intended for lightweight use cases where the user would like to utilize the GraphQL import syntax without needing access to GraphQL `ASTNode` objects.
 
 ## Example
 
-#### Before (without this plugin):
-
-get-articles.js
-
-```JS
-import { print } from 'graphql/language';
-import gql from 'graphql-tag';
-import axios from 'axios';
-
-const articlesQuery = gql`
-  query ARTICLES_QUERY {
-    articles {
-      ...ArticleListItem
-    }
-    mostViewed {
-      id
-      title
-      views
-    }
-  }
-
-  fragment ArticleListItem on ArticleType {
-    id
-    title
-    pubDate
-    views
-    author {
-      id
-      username
-    }
-  }
-`
-
-axios.post('http://localhost:8080/graphql', {
-  query: print(articlesQuery),
-}).then(response => console.log(response));
-```
-
-#### After (with this plugin):
-
-article-list-item.gql
+world.gql
 
 ```GraphQL
-fragment ArticleListItem on ArticleType {
+fragment World on HelloType {
   id
-  title
-  pubDate
-  views
-  author {
-    id
-    username
-  }
 }
 ```
 
-articles-query.gql
+hello.gql
 
 ```GraphQL
-#import "./article-list-item.gql"
+#import "./world.gql"
 
-query ARTICLES_QUERY {
-  articles {
-    ...ArticleListItem
-  }
-  mostViewed {
-    id
-    title
-    views
+query helloQuery {
+  hello {
+    ...World
   }
 }
 ```
 
-get-articles.js
-
+use-query.js
 ```JS
-import axios from 'axios';
-import articlesQuery from './articles-query.gql';
+import helloQuery from './hello.gql';
 
-axios.post('http://localhost:8080/graphql', {
-  query: articlesQuery, // No need for print, already a string
-}).then(response => console.log(response));
+console.log(helloQuery); // 'query helloQuery { hello { ...World } } fragment World on HelloType { id }
 ```
+
+***Note:*** Some ignored characters are omitted from the comment above for clarity. See the `stripIgnoredCharacters` option for omitting unnecessary characters from the GraphQL string/document node.
 
 ## Features
 
