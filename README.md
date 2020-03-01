@@ -96,7 +96,8 @@ Currently, this plugin is only intended for use with operation and fragment file
 Option | Type | Default | Description
 -|-|-|-
 `extensions` | Array | `[]` | Enables loading of graphQL files with extensions other than `.graphql` or `.gql`.
-`trim` | Boolean | `false` | Removes all unnecessary characters from the compiled graphQL strings when set to `true`. 
+`stripIgnoredCharacters` | Boolean | `false` | Removes all unnecessary characters from the compiled graphQL strings when set to `true`.
+`aliases` | Object | `{}` | Used to allow the plugin to resolve path aliases, e.g. [webpack aliases](https://webpack.js.org/configuration/resolve/#resolvealias). Each key should consist of an alias with the relative path as the corresponding value, e.g., `{ '@': './src' }`.
 
 ## Credits
 
