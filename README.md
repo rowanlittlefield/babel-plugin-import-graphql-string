@@ -28,7 +28,7 @@ use-query.js
 ```JS
 import helloQuery from './hello.gql';
 
-console.log(helloQuery); // 'query helloQuery { hello { ...World } } fragment World on HelloType { id }
+console.log(helloQuery); // 'query helloQuery { hello { ...World } } fragment World on HelloType { id }'
 ```
 
 ***Note:*** Some ignored characters are omitted from the comment above for clarity. See the `stripIgnoredCharacters` option for omitting unnecessary characters from the GraphQL string/document node.
