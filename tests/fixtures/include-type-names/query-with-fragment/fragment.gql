@@ -1,0 +1,6 @@
+fragment Worldly on HelloWorldType {
+  id
+  thing {
+    id
+  }
+}

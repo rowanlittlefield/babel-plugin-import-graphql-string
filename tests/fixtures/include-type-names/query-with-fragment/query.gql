@@ -1,0 +1,7 @@
+#import './fragment.gql'
+
+query helloWorld {
+  world {
+    ...Worldly
+  }
+}

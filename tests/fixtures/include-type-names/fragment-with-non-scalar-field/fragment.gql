@@ -1,0 +1,6 @@
+fragment Hey on WorldType {
+  id
+  thing {
+    id
+  }
+}
