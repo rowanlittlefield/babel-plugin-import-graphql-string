@@ -1,4 +1,4 @@
-fragment Worldly on HelloWorldType {
+fragment MostWorldly on HelloWorldType {
   id
   thing {
     id
