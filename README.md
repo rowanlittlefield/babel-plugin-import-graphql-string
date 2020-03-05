@@ -28,7 +28,7 @@ use-query.js
 ```JS
 import helloQuery from './hello.gql';
 
-console.log(helloQuery); // 'query helloQuery { hello { ...World } } fragment World on HelloType { id }
+console.log(helloQuery); // 'query helloQuery { hello { ...World } } fragment World on HelloType { id }'
 ```
 
 ***Note:*** Some ignored characters are omitted from the comment above for clarity. See the `stripIgnoredCharacters` option for omitting unnecessary characters from the GraphQL string/document node.
@@ -43,6 +43,7 @@ Option | Type | Default | Description
 -|-|-|-
 `extensions` | Array | `[]` | Enables loading of graphQL files with extensions other than `.graphql` or `.gql`.
 `stripIgnoredCharacters` | Boolean | `false` | Removes all unnecessary characters from the compiled graphQL strings when set to `true`.
+`includeTypeNames` | Boolean | `false` | Setting to `true` will cause the `__typename` field to be included in all non-scalar fields in all operations and fragments.
 `aliases` | Object | `{}` | Used to allow the plugin to resolve path aliases, e.g. [webpack aliases](https://webpack.js.org/configuration/resolve/#resolvealias). Each key should consist of an alias with the relative path as the corresponding value, e.g., `{ '@': './src' }`.
 
 ## Credits

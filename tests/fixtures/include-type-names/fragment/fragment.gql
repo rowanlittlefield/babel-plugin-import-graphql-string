@@ -1,0 +1,3 @@
+fragment Hello on WorldType {
+  id
+}

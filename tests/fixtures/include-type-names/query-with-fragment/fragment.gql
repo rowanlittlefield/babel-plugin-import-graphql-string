@@ -1,0 +1,6 @@
+fragment MostWorldly on HelloWorldType {
+  id
+  thing {
+    id
+  }
+}

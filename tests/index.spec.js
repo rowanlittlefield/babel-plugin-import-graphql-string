@@ -31,3 +31,13 @@ pluginTester({
     },
   },
 });
+
+pluginTester({
+  plugin,
+  pluginName: 'import-graphql-string',
+  title: 'includeTypeNames',
+  fixtures: path.join(__dirname, 'fixtures/include-type-names'),
+  pluginOptions: {
+    includeTypeNames: true,
+  },
+});
